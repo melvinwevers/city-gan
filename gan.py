@@ -48,6 +48,8 @@ parser.add_argument('--numSamples', type=int, default=8, help='how many random s
 parser.add_argument('--numClasses', type=int, default=None, help='number of classes in the dataset; only necessary when using a function other than train')
 parser.add_argument('--maxSamples', type=int, default=sys.maxsize, help='maximum number of samples')
 
+log_dir = './log/'
+
 opt = parser.parse_args()
 print(opt)
 
@@ -213,8 +215,8 @@ def train():
 
             # do checkpointing
             if math.floor((processed_samples-batch_size)/DUMP_PARAMETER_INTERVAL) < math.floor(processed_samples/DUMP_PARAMETER_INTERVAL):
-                torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (writer.log_dir, processed_samples))
-                torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (writer.log_dir, processed_samples))
+                torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (log_dir, processed_samples))
+                torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (log_dir, processed_samples))
 
 def get_fixed_noise():
     avg_and_classes_vec = get_classes_and_avg_vec()
